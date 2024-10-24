@@ -14,9 +14,10 @@ fn main() {
         }
         let idx = out
             .iter()
+            .enumerate()
             .skip(p + 1)
-            .position(|&b| b)
-            .map(|n| n + 1); // have to add 1 to match what's in skip() because position() is relative
+            .find(|(_, &b)| b)
+            .map(|(n, _)| n); // have to add 1 to match what's in skip() because position() is relative
         match idx {
             Some(next) => p += next,
             None => break,
@@ -27,7 +28,7 @@ fn main() {
         .iter()
         .enumerate()
         .filter_map(|(idx, is_prime)| is_prime.then(|| idx + 2));
-    for p in primes.take(50) {
+    for p in primes.take(20) {
         println!("{}", p);
     }
 }
